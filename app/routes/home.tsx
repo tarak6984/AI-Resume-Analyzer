@@ -24,11 +24,6 @@ export default function Home() {
   const [loadingResumes, setLoadingResumes] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Show landing page for unauthenticated users
-  if (!isLoading && !auth.isAuthenticated) {
-    return <Landing />;
-  }
-
   useEffect(() => {
     const loadResumes = async () => {
       if (!auth.isAuthenticated) return;
@@ -63,6 +58,11 @@ export default function Home() {
 
     loadResumes()
   }, [auth.isAuthenticated]);
+
+  // Show landing page for unauthenticated users
+  if (!isLoading && !auth.isAuthenticated) {
+    return <Landing />;
+  }
 
   return (
     <AuthGuard>
