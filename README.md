@@ -1,16 +1,29 @@
 <div align="center">
   <br />
-  <img src="public/readme/hero.webp" alt="Project Banner">
+  <img src="public/readme/hero.webp" alt="AI Resume Analyzer - Smart feedback for your dream job" width="600">
   <br />
 
   <div>
-    <img alt="Static Badge" src="https://img.shields.io/badge/React-4c84f3?style=for-the-badge&logo=react&logoColor=white">
-    <img src="https://img.shields.io/badge/-Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="TypeScript" />
-    <img alt="Static Badge" src="https://img.shields.io/badge/Puter.js-181758?style=for-the-badge&logoColor=white">
+    <img alt="React 19" src="https://img.shields.io/badge/React-19-4c84f3?style=for-the-badge&logo=react&logoColor=white">
+    <img src="https://img.shields.io/badge/React_Router-v7-CA4245?style=for-the-badge&logo=react-router&logoColor=white" />
+    <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+    <img alt="Puter.js" src="https://img.shields.io/badge/Puter.js-AI_Backend-181758?style=for-the-badge&logoColor=white">
+    <img alt="Vitest" src="https://img.shields.io/badge/-Vitest-729B1B?style=for-the-badge&logo=vitest&logoColor=white">
   </div>
 
-  <h1 align="center">AI Resume Analyzer</h1>
+  <h1 align="center">🤖 AI Resume Analyzer</h1>
+  <p align="center">
+    <strong>Smart AI-powered resume analysis with job matching and performance tracking</strong>
+  </p>
+  
+  <p align="center">
+    <a href="#features">✨ Features</a> •
+    <a href="#quick-start">🚀 Quick Start</a> •
+    <a href="#tech-stack">⚙️ Tech Stack</a> •
+    <a href="#documentation">📚 Docs</a> •
+    <a href="#contributing">🤝 Contributing</a>
+  </p>
 </div>
 
 ## 📋 <a name="table">Table of Contents</a>
@@ -26,9 +39,23 @@
 
 ## <a name="introduction">✨ Introduction</a>
 
-Build an AI-powered Resume Analyzer with React, React Router, and Puter.js! Implement seamless auth, upload and store resumes, and match candidates to jobs using smart AI evaluations. Get custom feedback and ATS scores tailored to each listing—all wrapped in a clean, reusable UI.
+AI Resume Analyzer is a comprehensive web application that transforms the job search process through intelligent resume optimization. Built with cutting-edge technologies, it provides job seekers with AI-powered insights, job matching capabilities, and performance analytics to maximize their career success.
 
-AI Resume Analyzer is a powerful tool that helps job seekers optimize their resumes for specific job listings using AI-powered analysis.
+### 🎯 **What It Does**
+
+Transform your job search with:
+- **AI-Powered Analysis**: Get detailed feedback across 5 key categories (ATS, Content, Skills, Structure, Tone)
+- **Smart Job Matching**: Compare your resume against real job postings with compatibility scores
+- **Performance Tracking**: Monitor improvements over time with comprehensive analytics
+- **Personalized Recommendations**: Receive specific, actionable advice to improve your resume
+
+### 🌟 **Why It's Special**
+
+- **No Backend Required**: Powered entirely by Puter.js cloud services
+- **Enterprise-Grade AI**: Uses Claude and GPT models for analysis
+- **Real-Time Processing**: Instant feedback and analysis
+- **Comprehensive Analytics**: Track performance across multiple resumes and job applications
+- **Modern Architecture**: Built with React 19, React Router v7, and TypeScript
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -50,21 +77,44 @@ AI Resume Analyzer is a powerful tool that helps job seekers optimize their resu
 
 ## <a name="features">🔋 Features</a>
 
-👉 **Easy & convenient auth**: Handle authentication entirely in the browser using Puter.js—no backend or setup required.
+### 📊 **AI-Powered Resume Analysis**
+- **5-Category Scoring**: ATS compatibility, content quality, tone & style, structure, and skills assessment
+- **Detailed Feedback**: Specific tips and recommendations for each category
+- **Smart Prompting**: Advanced AI prompts for accurate, actionable insights
+- **Fallback Systems**: Reliable feedback even when AI services are unavailable
 
-👉 **Resume upload & storage**: Let users upload and store all their resumes in one place, safely and reliably.
+### 🎯 **Job Matching Dashboard**
+- **Real Job Postings**: 5 sample jobs from top tech companies (Google, Microsoft, Apple, Amazon, Netflix)
+- **Compatibility Scoring**: Skills match, experience fit, keyword analysis, and overall compatibility
+- **Visual Indicators**: Color-coded skills (matching vs. missing)
+- **Detailed Breakdowns**: Comprehensive match analysis with improvement recommendations
 
-👉 **AI resume matching**: Provide a job listing and get an ATS score with custom feedback tailored to each resume.
+### 📈 **Performance Analytics**
+- **Resume Comparison**: Side-by-side comparison of up to 3 resumes
+- **Trend Tracking**: Monitor improvement trends over time
+- **Portfolio Analytics**: Overall performance metrics across all resumes
+- **Best Performer Identification**: Automatically identify top-performing resumes
+- **Insights Generation**: AI-powered recommendations based on performance data
 
-👉 **Reusable, modern UI**: Built with clean, consistent components for a great-looking and maintainable interface.
+### 🔐 **Secure Authentication & Storage**
+- **Browser-Based Auth**: Seamless authentication with Puter.js (no backend setup required)
+- **Cloud Storage**: Secure file storage and retrieval
+- **Data Persistence**: Resume data and analytics stored reliably
+- **User Profiles**: Personalized experience with user-specific data
 
-👉 **Code Reusability**: Leverage reusable components and a modular codebase for efficient development.
+### 🎨 **Modern UI/UX**
+- **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- **Loading States**: Skeleton loaders and smooth transitions
+- **Error Handling**: Comprehensive error boundaries and user feedback
+- **Accessibility**: Built with accessibility best practices
+- **Performance**: Optimized bundle splitting and lazy loading
 
-👉 **Cross-Device Compatibility**: Fully responsive design that works seamlessly across all devices.
-
-👉 **Modern UI/UX**: Clean, responsive design built with Tailwind CSS and shadcn/ui for a sleek user experience.
-
-And many more, including code architecture and reusability.
+### 🛠️ **Developer Experience**
+- **TypeScript**: Full type safety throughout the application
+- **Testing Suite**: Comprehensive tests with Vitest and Testing Library
+- **Performance Monitoring**: Bundle analysis and optimization tools
+- **Documentation**: Extensive documentation and code comments
+- **Modern Tooling**: Vite, React Router v7, and latest React features
 
 ## <a name="quick-start">🤸 Quick Start</a>
 
@@ -105,6 +155,111 @@ Open [http://localhost:5173](http://localhost:5173) in your browser to view the 
 
 Project assets are included in the `public` directory.
 
-## <a name="more">📝 License</a>
+## <a name="documentation">📚 Documentation</a>
+
+For detailed documentation, please refer to:
+
+- **[Development Guide](DEVELOPMENT.md)** - Comprehensive development documentation
+- **[API Reference](DEVELOPMENT.md#api-reference)** - Complete API documentation  
+- **[Testing Guide](DEVELOPMENT.md#testing)** - How to run and write tests
+- **[Performance Guide](DEVELOPMENT.md#performance)** - Optimization and monitoring
+- **[Deployment Guide](DEVELOPMENT.md#deployment)** - Production deployment options
+
+### Architecture Overview
+
+```mermaid
+graph TB
+    A[User] --> B[React Frontend]
+    B --> C[React Router v7]
+    B --> D[Zustand Store]
+    D --> E[Puter.js SDK]
+    E --> F[Puter Cloud]
+    F --> G[AI Services]
+    F --> H[File Storage]
+    F --> I[Auth Service]
+    F --> J[Key-Value Store]
+```
+
+### Key Technologies
+
+| Component | Technology | Purpose |
+|-----------|------------|----------|
+| **Frontend** | React 19 + TypeScript | Modern UI with type safety |
+| **Routing** | React Router v7 | Full-stack routing with SSR |
+| **Styling** | Tailwind CSS v4 | Utility-first styling |
+| **State** | Zustand | Lightweight state management |
+| **Backend** | Puter.js | Cloud services (auth, storage, AI) |
+| **Testing** | Vitest + Testing Library | Comprehensive test coverage |
+| **Build** | Vite | Fast development and builds |
+
+## <a name="contributing">🤝 Contributing</a>
+
+We welcome contributions! Here's how you can help:
+
+### Ways to Contribute
+
+- 🐛 **Report bugs** by opening issues
+- 🎆 **Request features** or enhancements  
+- 📝 **Improve documentation**
+- 💻 **Submit code improvements**
+- ✨ **Add new features**
+
+### Development Process
+
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Install** dependencies: `npm install`
+4. **Make** your changes
+5. **Test** your changes: `npm run test`
+6. **Check** types: `npm run typecheck` 
+7. **Commit** your changes: `git commit -m 'feat: add amazing feature'`
+8. **Push** to your branch: `git push origin feature/amazing-feature`
+9. **Open** a Pull Request
+
+### Code Standards
+
+- **TypeScript**: Strict mode enabled
+- **Testing**: Write tests for new features
+- **Documentation**: Update docs for API changes
+- **Commits**: Follow conventional commit format
+- **Code Style**: Consistent with existing patterns
+
+### Getting Help
+
+- 💬 **Discussions**: For questions and ideas
+- 🐛 **Issues**: For bugs and feature requests
+- 📚 **Documentation**: Check DEVELOPMENT.md first
+
+## <a name="roadmap">🗺️ Roadmap</a>
+
+### Completed ✅
+- [x] AI-powered resume analysis
+- [x] Job matching dashboard
+- [x] Performance analytics
+- [x] Authentication system
+- [x] Responsive UI/UX
+- [x] Testing framework
+- [x] Performance optimization
+
+### Planned 📦
+- [ ] Email notifications for analysis completion
+- [ ] Resume templates and suggestions
+- [ ] Integration with job boards (LinkedIn, Indeed)
+- [ ] Advanced analytics and insights
+- [ ] Mobile app version
+- [ ] Team/enterprise features
+
+## <a name="license">📝 License</a>
 
 This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  <p><strong>Made with ❤️ and cutting-edge tech</strong></p>
+  <p>
+    <a href="https://github.com/yourusername/ai-resume-analyzer/stargazers">🌟 Star this repo</a> • 
+    <a href="https://github.com/yourusername/ai-resume-analyzer/issues">🐛 Report issues</a> • 
+    <a href="https://github.com/yourusername/ai-resume-analyzer/fork">🍴 Fork & contribute</a>
+  </p>
+</div>

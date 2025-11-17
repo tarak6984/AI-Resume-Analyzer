@@ -19,7 +19,7 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
     }, [imagePath]);
 
     return (
-        <Link to={`/resume/${id}`} className="resume-card animate-in fade-in duration-1000">
+        <div className="resume-card animate-in fade-in duration-1000 group">
             <div className="resume-card-header">
                 <div className="flex flex-col gap-2">
                     {companyName && <h2 className="!text-black font-bold break-words">{companyName}</h2>}
@@ -32,16 +32,34 @@ const ResumeCard = ({ resume: { id, companyName, jobTitle, feedback, imagePath }
             </div>
             {resumeUrl && (
                 <div className="gradient-border animate-in fade-in duration-1000">
-                    <div className="w-full h-full">
+                    <Link to={`/resume/${id}`} className="block w-full h-full">
                         <img
                             src={resumeUrl}
                             alt="resume"
-                            className="w-full h-[350px] max-sm:h-[200px] object-cover object-top"
+                            className="w-full h-[350px] max-sm:h-[200px] object-cover object-top hover:scale-105 transition-transform"
                         />
-                    </div>
+                    </Link>
                 </div>
-                )}
-        </Link>
+            )}
+            
+            {/* Action buttons - appear on hover */}
+            <div className="absolute inset-x-4 bottom-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex gap-2">
+                    <Link 
+                        to={`/resume/${id}`}
+                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                    >
+                        View Analysis
+                    </Link>
+                    <Link 
+                        to={`/jobs?resume=${id}`}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white text-center py-2 px-3 rounded-lg text-sm font-medium transition-colors"
+                    >
+                        Find Jobs
+                    </Link>
+                </div>
+            </div>
+        </div>
     )
 }
 export default ResumeCard

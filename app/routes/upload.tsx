@@ -6,6 +6,8 @@ import {useNavigate} from "react-router";
 import {convertPdfToImage} from "~/lib/pdf2img";
 import {generateUUID} from "~/lib/utils";
 import {prepareInstructions} from "../../constants";
+import {generateFallbackFeedback, validateFeedbackStructure, sanitizeFeedback} from "~/lib/feedback-utils";
+import {AuthGuard} from "~/components/AuthGuard";
 
 const Upload = () => {
     const { auth, isLoading, fs, ai, kv } = usePuterStore();
@@ -35,12 +37,12 @@ const Upload = () => {
 
         setStatusText('Preparing data...');
         const uuid = generateUUID();
-        const data = {
+        const data: any = {
             id: uuid,
             resumePath: uploadedFile.path,
             imagePath: uploadedImage.path,
             companyName, jobTitle, jobDescription,
-            feedback: '',
+            feedback: null,
         }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
@@ -52,11 +54,26 @@ const Upload = () => {
         )
         if (!feedback) return setStatusText('Error: Failed to analyze resume');
 
+        setStatusText('Processing AI response...');
         const feedbackText = typeof feedback.message.content === 'string'
             ? feedback.message.content
             : feedback.message.content[0].text;
 
-        data.feedback = JSON.parse(feedbackText);
+        try {
+            const parsedFeedback = JSON.parse(feedbackText);
+            
+            // Validate and sanitize the feedback structure
+            if (validateFeedbackStructure(parsedFeedback)) {
+                data.feedback = sanitizeFeedback(parsedFeedback);
+            } else {
+                console.warn('AI feedback structure invalid, using fallback');
+                data.feedback = generateFallbackFeedback(jobTitle);
+            }
+        } catch (error) {
+            console.error('Failed to parse AI feedback:', error);
+            console.log('Using fallback feedback instead');
+            data.feedback = generateFallbackFeedback(jobTitle);
+        }
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
@@ -79,8 +96,9 @@ const Upload = () => {
     }
 
     return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-            <Navbar />
+        <AuthGuard>
+            <main className="bg-[url('/images/bg-main.svg')] bg-cover">
+                <Navbar />
 
             <section className="main-section">
                 <div className="page-heading py-16">
@@ -120,7 +138,8 @@ const Upload = () => {
                     )}
                 </div>
             </section>
-        </main>
+            </main>
+        </AuthGuard>
     )
 }
 export default Upload

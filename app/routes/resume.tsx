@@ -4,6 +4,9 @@ import {usePuterStore} from "~/lib/puter";
 import Summary from "~/components/Summary";
 import ATS from "~/components/ATS";
 import Details from "~/components/Details";
+import {FeedbackSkeleton, LoadingSkeleton} from "~/components/LoadingSkeleton";
+import {ErrorAlert, NetworkErrorFallback} from "~/components/ErrorBoundary";
+import {AuthGuard} from "~/components/AuthGuard";
 
 export const meta = () => ([
     { title: 'Resumind | Review ' },
@@ -16,6 +19,8 @@ const Resume = () => {
     const [imageUrl, setImageUrl] = useState('');
     const [resumeUrl, setResumeUrl] = useState('');
     const [feedback, setFeedback] = useState<Feedback | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,34 +29,57 @@ const Resume = () => {
 
     useEffect(() => {
         const loadResume = async () => {
-            const resume = await kv.get(`resume:${id}`);
+            if (!auth.isAuthenticated || !id) return;
+            
+            setLoading(true);
+            setError(null);
 
-            if(!resume) return;
+            try {
+                const resume = await kv.get(`resume:${id}`);
 
-            const data = JSON.parse(resume);
+                if(!resume) {
+                    setError('Resume not found. It may have been deleted or you may not have permission to view it.');
+                    return;
+                }
 
-            const resumeBlob = await fs.read(data.resumePath);
-            if(!resumeBlob) return;
+                const data = JSON.parse(resume);
 
-            const pdfBlob = new Blob([resumeBlob], { type: 'application/pdf' });
-            const resumeUrl = URL.createObjectURL(pdfBlob);
-            setResumeUrl(resumeUrl);
+                // Load PDF file
+                const resumeBlob = await fs.read(data.resumePath);
+                if(!resumeBlob) {
+                    setError('Failed to load resume file. Please try again.');
+                    return;
+                }
 
-            const imageBlob = await fs.read(data.imagePath);
-            if(!imageBlob) return;
-            const imageUrl = URL.createObjectURL(imageBlob);
-            setImageUrl(imageUrl);
+                const pdfBlob = new Blob([resumeBlob], { type: 'application/pdf' });
+                const resumeUrl = URL.createObjectURL(pdfBlob);
+                setResumeUrl(resumeUrl);
 
-            setFeedback(data.feedback);
-            console.log({resumeUrl, imageUrl, feedback: data.feedback });
+                // Load image preview
+                const imageBlob = await fs.read(data.imagePath);
+                if(!imageBlob) {
+                    setError('Failed to load resume preview. Please try again.');
+                    return;
+                }
+                const imageUrl = URL.createObjectURL(imageBlob);
+                setImageUrl(imageUrl);
+
+                setFeedback(data.feedback);
+            } catch (error) {
+                console.error('Failed to load resume:', error);
+                setError('Failed to load resume. Please try again.');
+            } finally {
+                setLoading(false);
+            }
         }
 
         loadResume();
-    }, [id]);
+    }, [id, auth.isAuthenticated]);
 
     return (
-        <main className="!pt-0">
-            <nav className="resume-nav">
+        <AuthGuard>
+            <main className="!pt-0">
+                <nav className="resume-nav">
                 <Link to="/" className="back-button">
                     <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5" />
                     <span className="text-gray-800 text-sm font-semibold">Back to Homepage</span>
@@ -59,7 +87,15 @@ const Resume = () => {
             </nav>
             <div className="flex flex-row w-full max-lg:flex-col-reverse">
                 <section className="feedback-section bg-[url('/images/bg-small.svg') bg-cover h-[100vh] sticky top-0 items-center justify-center">
-                    {imageUrl && resumeUrl && (
+                    {loading ? (
+                        <div className="gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
+                            <LoadingSkeleton variant="rectangle" width="w-full" height="h-full" />
+                        </div>
+                    ) : error ? (
+                        <div className="text-center p-8">
+                            <ErrorAlert message={error} />
+                        </div>
+                    ) : imageUrl && resumeUrl ? (
                         <div className="animate-in fade-in duration-1000 gradient-border max-sm:m-0 h-[90%] max-wxl:h-fit w-fit">
                             <a href={resumeUrl} target="_blank" rel="noopener noreferrer">
                                 <img
@@ -69,22 +105,37 @@ const Resume = () => {
                                 />
                             </a>
                         </div>
-                    )}
+                    ) : null}
                 </section>
                 <section className="feedback-section">
                     <h2 className="text-4xl !text-black font-bold">Resume Review</h2>
-                    {feedback ? (
+                    {loading ? (
+                        <FeedbackSkeleton />
+                    ) : error ? (
+                        <div className="mt-8">
+                            <NetworkErrorFallback 
+                                onRetry={() => window.location.reload()}
+                                message={error}
+                            />
+                        </div>
+                    ) : feedback ? (
                         <div className="flex flex-col gap-8 animate-in fade-in duration-1000">
                             <Summary feedback={feedback} />
                             <ATS score={feedback.ATS.score || 0} suggestions={feedback.ATS.tips || []} />
                             <Details feedback={feedback} />
                         </div>
                     ) : (
-                        <img src="/images/resume-scan-2.gif" className="w-full" />
+                        <div className="text-center mt-8">
+                            <ErrorAlert 
+                                title="No feedback available"
+                                message="This resume hasn't been analyzed yet or the analysis failed."
+                            />
+                        </div>
                     )}
                 </section>
-            </div>
-        </main>
+                </div>
+            </main>
+        </AuthGuard>
     )
 }
 export default Resume
