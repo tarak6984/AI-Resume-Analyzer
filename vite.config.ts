@@ -16,15 +16,6 @@ export default defineConfig({
     exclude: ['pdfjs-dist']
   },
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          router: ['react-router'],
-          ui: ['zustand'],
-        },
-      },
-    },
     target: 'es2015',
     minify: 'esbuild',
     sourcemap: false,
