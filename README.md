@@ -18,6 +18,12 @@
   </p>
   
   <p align="center">
+    <a href="https://ai-resume-analyzer-livid-nine.vercel.app/" target="_blank">
+      <img src="https://img.shields.io/badge/🚀_Live_Demo-Visit_App-blue?style=for-the-badge" alt="Live Demo" />
+    </a>
+  </p>
+  
+  <p align="center">
     <a href="#features">✨ Features</a> •
     <a href="#quick-start">🚀 Quick Start</a> •
     <a href="#tech-stack">⚙️ Tech Stack</a> •
